@@ -3,14 +3,14 @@
 #include <ros/ros.h>
 
 #include <boost/program_options.hpp>
-
-#include <string>
-#include <vector>
+// Include Boost.Filesystem for path operations
+#include <boost/filesystem.hpp>
 
 using namespace std;
 
 namespace po = boost::program_options;
-namespace fs = std::filesystem;
+namespace fs = boost::filesystem;
+
 using atwork_commander::Control;
 using atwork_commander::ControlError;
 

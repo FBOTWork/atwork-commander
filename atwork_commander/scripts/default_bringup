@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
+source /opt/ros/kinetic/setup.bash  # ensure ROS environment and rosbash functions
 
 # Load ROS parameters
-roscore &
-
-sleep 1
 
 rosbash_init_node "task_to_bag" "$@"
 
@@ -15,7 +13,7 @@ rosbash_param record_bag "record_rosbag" False
 # State that we begin now
 
 echo "Starting the atwork commander with task ('${task}') specified"
-roslaunch atwork_commander atwork_commander.launch 1>/dev/null & 
+roslaunch atwork_commander atwork_commander.launch & 
 
 sleep 1
 
@@ -26,25 +24,25 @@ if [ "${record_bag}" == "True" ]; then
 fi
 
 
-roslaunch atwork_commander example_robot.launch 1>/dev/null &
+roslaunch atwork_commander example_robot.launch &
 
 sleep 1
 
 echo "Loading the task.."
 
-roslaunch atwork_commander generate.launch task:="${task}" 1>/dev/null &
+roslaunch atwork_commander generate.launch task:="${task}" &
 
 sleep 1
 
 echo "Starting prep phase!"
 
-roslaunch atwork_commander start.launch 1>/dev/null &
+roslaunch atwork_commander start.launch &
 
 sleep 1
 
 if [ "${immediate}" == "True" ]; then
     echo "Forwarding to execution immediately!"
-    roslaunch atwork_commander forward.launch 1>/dev/null &
+    roslaunch atwork_commander forward.launch &
     sleep 10
 
     echo "Recorded 10s of the task. Shutting down now .."

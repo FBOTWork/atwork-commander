@@ -1187,7 +1187,7 @@ class Generator : public GeneratorPluginInterface {
             cavities.push_back(cavity);
           }
           sort(cavities.begin(), cavities.end(), [](const atwork_commander_msgs::Object& a, const atwork_commander_msgs::Object& b){ return a.object < b.object; });
-          auto rem = unique(cavities.begin(), cavities.end());
+          auto rem = unique(cavities.begin(), cavities.end(), [](const atwork_commander_msgs::Object &a, const atwork_commander_msgs::Object &b){ return a.object == b.object; });
           cavities.erase(rem, cavities.end());
           while(cavities.size() < 5){
             if(cavitiesEnd == remainingCavities.begin())

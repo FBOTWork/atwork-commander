@@ -15,7 +15,7 @@
 #include <regex>
 
 using namespace std;
-namespace fs = std::filesystem;
+namespace fs = boost::filesystem;
 
 using atwork_commander_msgs::RefboxState;
 using atwork_commander_msgs::StateUpdate;
@@ -184,7 +184,7 @@ public:
     vector<uint8_t> buffer(size);
     ros::serialization::OStream stream(buffer.data(), size);
     ros::serialization::serialize(stream, state.task);
-    ofstream file(fileName);
+    ofstream file(fileName.string());
     file.write(reinterpret_cast<const char*>(buffer.data()), buffer.size());
     file.close();
     ROS_DEBUG_STREAM_NAMED("store", prefix << "current refbox task saved to " << fileName << " size: " << buffer.size());
@@ -196,7 +196,7 @@ public:
       throw ControlError("load", ControlError::Reasons::PATH_INVALID, fileName.native());
 
     ROS_DEBUG_STREAM_NAMED("control", prefix << "starting loading of task from " << fileName << " to refbox");
-    ifstream file(fileName);
+    ifstream file(fileName.string());
     vector<uint8_t> buffer;
     while( !file.eof()) {
       buffer.resize(buffer.size()+1024);

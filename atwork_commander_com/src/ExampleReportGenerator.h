@@ -10,6 +10,13 @@ using  atwork_commander_msgs::Task;
 using  atwork_commander_msgs::Workstation;
 using  atwork_commander_msgs::Object;
 
+// add operator== for Object to allow use in std::count
+namespace atwork_commander_msgs {
+inline bool operator==(const Object& a, const Object& b) {
+  return a.object == b.object;
+}
+}
+
 class ExampleReportGenerator {
   protected:
     RobotState& mState;

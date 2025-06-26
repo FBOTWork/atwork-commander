@@ -3,7 +3,9 @@
 #include <atwork_commander_msgs/RefboxState.h>
 #include <atwork_commander_msgs/Task.h>
 
-#include <filesystem>
+#include <boost/filesystem.hpp>
+
+namespace fs = boost::filesystem;
 
 #include <string>
 #include <vector>
@@ -210,7 +212,7 @@ class Control {
        * \throw ControlError
        * \param fileName filesystem path to store task to
        **/
-       void store( std::filesystem::path fileName );
+       void store( fs::path fileName );
 
        /** Command to load a locally stored task in the RefBox. The locally stored file will be parsed and submitted to
         * the RefBox, if no task is currently executed. If  the file does not exist or does not contain a valid task, a
@@ -221,7 +223,7 @@ class Control {
         * \throw ControlError
         * \param fileName filesystem path to load task from
         **/
-        void load( std::filesystem::path fileName );
+        void load( fs::path fileName );
         ///@}
     };
 }

@@ -3,6 +3,7 @@
 #include "ros/ros.h"
 
 #include <chrono>
+#include <ctime>
 #include <fstream>
 
 const std::string FILE_OUTPUT_PATH = "/tmp/"; /**< path of the output file */
@@ -14,7 +15,7 @@ const std::string FILE_OUTPUT_PATH = "/tmp/"; /**< path of the output file */
  */
 void write2File(std::string filename, std::string line) {
   std::ofstream file;
-  file.open(FILE_OUTPUT_PATH + filename, std::ios::app);
+  file.open((FILE_OUTPUT_PATH + filename).c_str(), std::ios::app);
   file << line;
   file.close();
 }
